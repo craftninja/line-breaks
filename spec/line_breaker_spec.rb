@@ -17,5 +17,25 @@ HEREDOC
     actual = line_break_this.output
     expect(actual).to eq(expected)
   end
+  it 'breaks lines up at 20 characters, keeping empty lines' do
+    character_break_number = 20
+    text = <<HEREDOC
+Jean shorts you probably haven't heard of them farm-to-table.
 
+And then some other stuff happened.
+HEREDOC
+    expected = <<HEREDOC
+Jean shorts you
+probably haven't
+heard of them
+farm-to-table.
+
+And then some
+other stuff
+happened.
+HEREDOC
+    line_break_this = LineBreaker.new(character_break_number, text)
+    actual = line_break_this.output
+    expect(actual).to eq(expected)
+  end
 end
